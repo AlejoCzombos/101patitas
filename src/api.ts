@@ -1,10 +1,10 @@
 import { Product } from './types'
 
 export const api = {
-    product : {
+    products : {
         list: async (): Promise<Product[]> => {
             const URL = process.env.SHEETS_URL as string;
-            return fetch(URL)
+            return fetch(URL, {next: {tags: ['products']}})
             .then(res => res.text())
             .then(text => {
                 const rows = text.split('\n').slice(1)
