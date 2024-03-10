@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
+import { Comfortaa } from "next/font/google";
 import "./globals.css";
+
+const conforta = Comfortaa({
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: "101Patitas",
-  description: "101Patitas es un emprendimiento que se dedica a la venta de chapitas personalizadas echas en 3D",
+  description:
+    "101Patitas es un emprendimiento que se dedica a la venta de chapitas personalizadas echas en 3D",
 };
 
 export default function RootLayout({
@@ -13,8 +19,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body>
-        <main className="p-5">{children}</main>
+      <body className={conforta.className}>
+        {children}
         <footer className="text-center">
           © {new Date().getFullYear()} 101Patitas
         </footer>
