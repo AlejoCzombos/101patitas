@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Comfortaa } from "next/font/google";
 import "./globals.css";
+import Link from "next/link";
 
 const conforta = Comfortaa({
   subsets: ["latin"],
@@ -20,6 +21,9 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className={conforta.className}>
+        <Link href={"/"}>
+          <h1 className="text-5xl font-bold text-center p-5">101Patitas</h1>
+        </Link>
         {children}
         <footer className="text-center">
           © {new Date().getFullYear()} 101Patitas
