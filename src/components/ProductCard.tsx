@@ -12,7 +12,7 @@ export function ProductCard({
   return (
     <article
       key={name}
-      className=" max-w-xs border-2 border-gray rounded-xl overflow-hidden"
+      className="border-2 w-full border-gray rounded-xl overflow-hidden"
     >
       <img
         className="object-cover w-full h-auto hover:scale-105 transition-transform duration-300 ease-in-out"

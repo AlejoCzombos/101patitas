@@ -15,7 +15,7 @@ export default async function Home({
   );
   return (
     <main className="gap-5 p-5 bg-slate-100">
-      <section className="flex flex-col lg:flex-row max-w-5xl gap-0 lg:gap-5 mx-auto bg-white rounded-xl px-5 py-8 lg:p-10">
+      <section className="flex flex-col lg:flex-row max-w-5xl gap-5 lg:gap-5 mx-auto bg-white rounded-xl p-5 lg:p-10">
         <Carousel
           className="w-full lg:w-1/2"
           images={[
@@ -25,7 +25,7 @@ export default async function Home({
           ]}
           name={product?.name || "Product Name"}
         />
-        <div className="p-5 flex flex-col gap-5 w-full lg:w-1/2">
+        <div className="flex flex-col gap-5 w-full lg:w-1/2">
           <div className="flex flex-col gap-2">
             <p className="text-gray text-sm">
               Inicio / {product?.category} /
