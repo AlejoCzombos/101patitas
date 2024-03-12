@@ -2,17 +2,24 @@ import { api } from "@/api";
 import FormProduct from "@/components/FormProduct";
 import { Carousel } from "@components/Carousel";
 
-export default async function Home({
-  searchParams,
+export default async function ProductPage({
+  params,
 }: {
-  searchParams: {
-    name: string;
-  };
+  params: { name: string };
 }) {
+  const productName = decodeURIComponent(params.name);
+
   const products = await api.products.list();
-  const product = products.find(
-    (product) => product.name === searchParams.name
-  );
+  const product = products.find((product) => product.name === productName) || {
+    name: "Huesito",
+    price: 3000,
+    category: "Clásico",
+    description: "Description",
+    shape: "Cuadrado",
+  };
+
+  console.log(params.name, product);
+
   return (
     <main className="gap-5 p-5 bg-slate-100">
       <section className="flex flex-col lg:flex-row max-w-5xl gap-5 lg:gap-5 mx-auto bg-white rounded-xl p-5 lg:p-10">
@@ -34,7 +41,7 @@ export default async function Home({
             <h2 className="text-2xl font-bold">{product?.name}</h2>
             <p className="text-4xl font-bold">$ {product?.price}</p>
           </div>
-          <FormProduct />
+          <FormProduct productName={product.name} />
           <p>{product?.description}</p>
         </div>
       </section>
