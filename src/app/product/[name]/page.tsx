@@ -1,5 +1,5 @@
 import { api } from "@/api";
-import FormProduct from "@/components/FormProduct";
+import FormProduct from "@/components/ProductForm";
 import { Carousel } from "@components/Carousel";
 
 export default async function ProductPage({
