@@ -1,6 +1,8 @@
 import Link from "next/link";
 import CartIcon from "./CartIcon";
 import Image from "next/image";
+import CartSlideMenu from "./CartSlideMenu";
+import { CartProvider } from "@/context/CartContext";
 
 export default function NavBar() {
   return (
@@ -16,7 +18,10 @@ export default function NavBar() {
             alt="Logo de 101Patitas"
           />
         </Link>
-        <CartIcon />
+        <CartProvider>
+          <CartIcon />
+          <CartSlideMenu />
+        </CartProvider>
       </div>
     </nav>
   );
