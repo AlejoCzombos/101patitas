@@ -34,7 +34,7 @@ export default async function ProductPage({
         />
         <div className="flex flex-col gap-5 w-full lg:w-1/2">
           <div className="flex flex-col gap-2">
-            <p className="text-gray text-sm">
+            <p className="text-gray-500 text-sm">
               Inicio / {product?.category} /
               <span className="text-black font-black"> {product?.name}</span>
             </p>

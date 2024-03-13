@@ -24,7 +24,7 @@ export function ProductCard({
         <p className="text-3xl">${price}</p>
         <Link
           href={`/product/${name}`}
-          className="flex justify-center mt-3 border-2 border-primary rounded-full py-2 font-bold text-2xl text-primary hover:bg-primary hover:text-white transition-colors duration-300 ease-in-out"
+          className="flex justify-center mt-3 border-2 border-primary-500 rounded-full py-2 font-bold text-2xl text-primary-500  hover:bg-primary-400/90  hover:text-white transition-colors duration-300 ease-in-out"
         >
           Comprar
         </Link>

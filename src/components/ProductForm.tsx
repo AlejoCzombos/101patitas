@@ -13,7 +13,6 @@ export default function FormProduct({ productName }: { productName: string }) {
 
   useEffect(() => {
     const cartLS = JSON.parse(localStorage.getItem("cart") as string) ?? [];
-    console.log(cartLS);
     setCart(cartLS);
   }, []);
 
@@ -49,7 +48,7 @@ export default function FormProduct({ productName }: { productName: string }) {
           Cantidad:
         </label>
         <select
-          className="border-2 border-primary w-full rounded-full text-center text-xl cursor-pointer"
+          className="border-2 border-primary-500  w-full rounded-full text-center text-xl cursor-pointer"
           value={quantity}
           onChange={(e) => changeQuantity(parseInt(e.target.value))}
           name="quantity"
@@ -64,7 +63,7 @@ export default function FormProduct({ productName }: { productName: string }) {
       </div>
       <button
         onClick={addToCart}
-        className="flex justify-center items-center rounded-full w-full border-2 border-primary py-2 font-bold text-xl bg-primary text-white hover:bg-primary/80 transition-colors duration-300 ease-in-out"
+        className="flex justify-center items-center rounded-full w-full  py-2 font-bold text-xl bg-primary-500  text-white hover:bg-primary-400/90 transition-colors duration-300 ease-in-out"
       >
         Agregar al carrito
       </button>

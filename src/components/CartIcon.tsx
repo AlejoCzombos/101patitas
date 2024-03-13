@@ -11,7 +11,7 @@ export default function CartIcon() {
 
   return (
     <button
-      className="py-4 px-1 relative border-2 border-transparent text-gray-800 rounded-full hover:text-gray-400 focus:outline-none focus:text-gray-500 transition duration-150 ease-in-out"
+      className="py-4 px-1 relative border-2 border-transparent text-gray-800 rounded-full hover:text-gray-400 focus:outline-none focus:text-gray-500  transition duration-150 ease-in-out"
       aria-label="Cart"
     >
       <svg
@@ -27,7 +27,7 @@ export default function CartIcon() {
       </svg>
       {cartLength > 0 && (
         <span className="absolute inset-0 object-right-top -mr-6">
-          <div className="inline-flex justify-center items-center px-1.5 py-0.5 border-2 border-white bg-primary rounded-full text-xs font-semibold leading-4 bg text-white">
+          <div className="inline-flex justify-center items-center px-1.5 py-0.5 border-2 border-white bg-primary-500  rounded-full text-xs font-semibold leading-4 bg text-white">
             {cartLength}
           </div>
         </span>
