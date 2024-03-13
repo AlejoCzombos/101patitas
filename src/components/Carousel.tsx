@@ -1,5 +1,3 @@
-import { useId } from "react";
-
 export function Carousel({
   images,
   name,
@@ -18,7 +16,7 @@ export function Carousel({
       <div className="relative aspect-square overflow-hidden rounded-lg">
         {images.map((image) => (
           <div
-            key={useId()}
+            key={image.length}
             className="hidden duration-700 ease-in-out"
             data-carousel-item
           >
