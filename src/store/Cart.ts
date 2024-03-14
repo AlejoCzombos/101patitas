@@ -2,7 +2,7 @@ import {create} from 'zustand'
 import {persist} from 'zustand/middleware'
 
 export interface CartState {
-    products: CartProduct[]
+    cartProducts: CartProduct[]
     addProduct: (product: CartProduct) => void
     removeProduct: (product: CartProduct) => void
 }
@@ -17,28 +17,23 @@ export interface CartOpenState {
     setIsOpen: (isOpen: boolean) => void
 }
 
-const getCartLocalStorage = () => {
-    const cartLS = JSON.parse(localStorage.getItem("cart") || "[]");
-    return cartLS;
-}
-
 export const useCart = create(
     persist(
     (set) => ({
-        products: [],
-        addProduct: (product: CartProduct) => set((state : any) => {
-            const productIndex = state.products.findIndex((p : any) => p.name === product.name);
+        cartProducts: [],
+        addProduct: (cartProduct: CartProduct) => set((state : any) => {
+            const productIndex = state.cartProducts.findIndex((p : any) => p.name === cartProduct.name);
 
             const newProducts = [
-                 ...state.products.slice(0, productIndex),
-                 { name: product.name , quantity: product.quantity },
-                 ...state.products.slice(productIndex + 1)
+                 ...state.cartProducts.slice(0, productIndex),
+                 { name: cartProduct.name , quantity: cartProduct.quantity },
+                 ...state.cartProducts.slice(productIndex + 1)
                 ]
-            return { products: newProducts };
+            return { cartProducts: newProducts };
         }),
-        removeProduct: (product: CartProduct) => set((state : any) => {
-            const newProducts = state.products.filter((p : any) => p.name !== product.name);
-            return { products: newProducts };
+        removeProduct: (cartProduct: CartProduct) => set((state : any) => {
+            const newProducts = state.cartProducts.filter((p : any) => p.name !== cartProduct.name);
+            return { cartProducts: newProducts };
         }),
     }),
     {name: "cart"}
