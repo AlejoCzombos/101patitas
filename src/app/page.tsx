@@ -1,5 +1,4 @@
 import { api } from "@/api";
-import Image from "next/image";
 import { ProductCard } from "@/components/ProductCard";
 
 export default async function Home() {
