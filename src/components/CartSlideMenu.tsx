@@ -1,9 +1,11 @@
 "use client";
 
-import { CartContextProps, useCart } from "@/context/CartContext";
+import { useCart, useCartOpen } from "@/store/Cart";
+import type { CartOpenState, CartState } from "@/store/Cart";
 
 export default function CartSlideMenu() {
-  const { isOpen, setIsOpen } = useCart() as CartContextProps;
+  const { removeProduct, products } = useCart() as CartState;
+  const { isOpen, setIsOpen } = useCartOpen() as CartOpenState;
 
   const onClose = () => {
     setIsOpen(false);
@@ -44,6 +46,40 @@ export default function CartSlideMenu() {
             </svg>
           </button>
         </div>
+        {products.map((product) => (
+          <div key={product.name} className="p-4">
+            <div className="flex justify-between items-center">
+              <div className="flex items-center">
+                <img
+                  className="h-16 w-16 object-contain"
+                  src="/chapa.png"
+                  alt="Chapa"
+                />
+                <div className="ml-4">
+                  <h3 className="text-lg font-semibold">{product.name}</h3>
+                  <p className="text-gray-500">Cantidad: {product.quantity}</p>
+                </div>
+              </div>
+              <button
+                className="text-2xl"
+                aria-label="Remove from Cart"
+                onClick={() => removeProduct(product)}
+              >
+                <svg
+                  className="size-7"
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        ))}
         <div className="p-4">
           <div className="flex justify-between items-center">
             <div className="flex items-center">

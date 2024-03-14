@@ -1,44 +1,19 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
-interface CartProduct {
-  productName: string;
-  quantity: number;
-}
+import { CartState, useCart } from "@/store/Cart";
+import { useState } from "react";
 
 export default function FormProduct({ productName }: { productName: string }) {
   const [quantity, setQuantity] = useState<number>(1);
-  const [cart, setCart] = useState<CartProduct[]>([] as CartProduct[]);
+  const { addProduct } = useCart() as CartState;
 
-  useEffect(() => {
-    const cartLS = JSON.parse(localStorage.getItem("cart") as string) ?? [];
-    setCart(cartLS);
-  }, []);
-
-  useEffect(() => {
-    if (cart.length === 0) return;
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);
+  const addToCart = () => {
+    addProduct({ name: productName, quantity: quantity });
+  };
 
   const changeQuantity = (newQuantity: number) => {
     if (newQuantity < 1 || newQuantity > 99) return;
     setQuantity(newQuantity);
-  };
-
-  const addToCart = () => {
-    if (cart.some((product) => product.productName === productName)) {
-      const newCart = cart.map((product) => {
-        if (product.productName === productName) {
-          product.quantity = quantity;
-        }
-        return product;
-      });
-
-      setCart(newCart);
-    } else {
-      setCart([...cart, { productName: productName, quantity: quantity }]);
-    }
   };
 
   return (
