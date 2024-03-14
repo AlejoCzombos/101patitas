@@ -18,8 +18,6 @@ export default async function ProductPage({
     shape: "Cuadrado",
   };
 
-  console.log(params.name, product);
-
   return (
     <main className="gap-5 p-5 bg-slate-100">
       <section className="flex flex-col lg:flex-row max-w-5xl gap-5 lg:gap-5 mx-auto bg-white rounded-xl p-5 lg:p-10">
