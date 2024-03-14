@@ -2,12 +2,15 @@
 
 import { useCart, useCartOpen } from "@/store/Cart";
 import type { CartOpenState, CartState } from "@/store/Cart";
+import { useState } from "react";
 
-export default function CartIcon() {
-  const { products } = useCart() as CartState;
+export default function CartButton() {
+  const [hasClicked, setHasClicked] = useState(false);
+  const { cartProducts } = useCart() as CartState;
   const { isOpen, setIsOpen } = useCartOpen() as CartOpenState;
 
   const handleClick = () => {
+    setHasClicked(true);
     setIsOpen(!isOpen);
   };
 
@@ -28,10 +31,14 @@ export default function CartIcon() {
       >
         <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
       </svg>
-      {products.length > 0 && (
+      {cartProducts.length > 0 && (
         <span className="absolute inset-0 object-right-top -mr-6">
-          <div className="inline-flex justify-center items-center px-1.5 py-0.5 border-2 border-white bg-primary-500  rounded-full text-xs font-semibold leading-4 bg text-white">
-            {products.length}
+          <div
+            className={`${
+              hasClicked ? "" : "motion-safe:animate-ping"
+            } inline-flex size-6 justify-center items-center px-1.5 py-0.5 border-2 border-white bg-primary-500  rounded-full text-xs font-semibold leading-4 bg text-white`}
+          >
+            {cartProducts.length}
           </div>
         </span>
       )}
