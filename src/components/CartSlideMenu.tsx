@@ -3,8 +3,9 @@
 import { useCart, useCartOpen } from "@/store/Cart";
 import type { CartOpenState, CartState } from "@/store/Cart";
 import CloseIcon from "./Icons/CloseIcon";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Product } from "@/types";
+import Link from "next/link";
 
 export default function CartSlideMenu({
   newProducts,
@@ -15,15 +16,32 @@ export default function CartSlideMenu({
   const { isOpen, setIsOpen } = useCartOpen() as CartOpenState;
 
   const [products, setProducts] = useState<Product[]>(newProducts);
+  const [totalPrice, setTotalPrice] = useState<number>(0);
 
   const onClose = () => {
     setIsOpen(false);
   };
 
+  const CalculateTotalPrice = () => {
+    let total = 0;
+    cartProducts.forEach((cartProduct) => {
+      const product = products.find(
+        (product) => product.name === cartProduct.name
+      );
+      total += (product?.price ?? 0) * cartProduct.quantity;
+    });
+    return total;
+    setTotalPrice(total);
+  };
+
+  useEffect(() => {
+    CalculateTotalPrice();
+  }, [totalPrice]);
+
   return (
     <div
       onClick={onClose}
-      className={`fixed inset-0 flex justify-center items-center z-30
+      className={`fixed inset-0 z-30
         transition-colors ${isOpen ? "visible bg-black/50" : "invisible"}
       `}
     >
@@ -33,52 +51,80 @@ export default function CartSlideMenu({
         className={`
       ${
         isOpen ? "translate-x-0" : "translate-x-full"
-      } h-screen w-[60%] max-w-lg absolute top-0 right-0 z-50 bg-white transition-transform duration-300 ease-in-out overflow-y-auto`}
+      } h-screen w-full sm:max-w-xl absolute top-0 right-0 z-50 bg-white transition-transform duration-300 ease-in-out overflow-y-auto`}
       >
-        <div className="flex justify-between items-center p-4">
-          <h2 className="text-2xl font-semibold">Carrito</h2>
-          <button
-            className="text-2xl"
-            aria-label="Close Cart"
-            onClick={onClose}
-          >
-            <CloseIcon className="size-8 hover:transform hover:scale-125 hover:fill-red-500 duration-300" />
-          </button>
-        </div>
-        {cartProducts.map((cartProduct) => (
-          <div key={cartProduct.name} className="p-4">
-            <div className="flex justify-between items-center relative">
-              <div className="flex items-center gap-4">
-                <img
-                  className="size-16 object-contain rounded-lg"
-                  src="https://placehold.it/64x64"
-                  alt="Chapa"
-                />
-                <div>
-                  <h3 className="text-lg font-semibold">{cartProduct.name}</h3>
-                  <p className="text-gray-500">
-                    Cantidad: {cartProduct.quantity}
-                  </p>
+        <button
+          className="flex justify-start items-center p-4 bg-primary-500 group border-b border-primary-500 w-full gap-3 transition-colors hover:bg-white duration-300 ease-in"
+          aria-label="Close Cart"
+          onClick={onClose}
+        >
+          {/* Reemplazar por un icono */}{" "}
+          <p className="block sm:hidden text-2xl font-bold">{"<"}</p>
+          <CloseIcon className="size-6 group-hover:transform group-hover:scale-125 duration-300 hidden sm:block" />
+          <h2 className="text-xl font-semibold">Carrito de Compras</h2>
+        </button>
+        <div className="flex flex-col justify-between p-5 space-y-8">
+          <section className="space-y-4">
+            {cartProducts.map((cartProduct) => (
+              <div key={cartProduct.name}>
+                <div className="flex justify-between relative">
+                  <div className="flex items-center gap-4">
+                    <img
+                      className="size-16 object-contain rounded-lg"
+                      src="https://placehold.it/64x64"
+                      alt="Chapa"
+                    />
+                    <div>
+                      <Link href={`/products/${cartProduct.name}`}>
+                        <h3 className="text-lg font-semibold hover:underline">
+                          {cartProduct.name}
+                        </h3>
+                      </Link>
+                      <p className="text-gray-500">
+                        Cantidad: {cartProduct.quantity}
+                      </p>
+                    </div>
+                  </div>
+                  {products && (
+                    <p className="flex items-end pb-1 text-lg font-bold">
+                      ${" "}
+                      {(products.find(
+                        (product) => product.name === cartProduct.name
+                      )?.price ?? 0) * cartProduct.quantity}
+                    </p>
+                  )}
+                  <button
+                    className="absolute top-1 right-1"
+                    aria-label="Remove from Cart"
+                    onClick={() => {
+                      removeProduct(cartProduct);
+                      setTotalPrice(CalculateTotalPrice());
+                    }}
+                  >
+                    <CloseIcon className="size-6 hover:transform hover:scale-125 duration-300" />
+                  </button>
                 </div>
               </div>
-              {products && (
-                <p className="">
-                  ${" "}
-                  {(products.find(
-                    (product) => product.name === cartProduct.name
-                  )?.price ?? 0) * cartProduct.quantity}
-                </p>
-              )}
-              <button
-                className="absolute top-1 right-1"
-                aria-label="Remove from Cart"
-                onClick={() => removeProduct(cartProduct)}
-              >
-                <CloseIcon className="size-6 hover:transform hover:scale-125 duration-300" />
+            ))}
+          </section>
+          {cartProducts.length > 0 && (
+            <section className="space-y-2">
+              <div className="flex justify-between items-center pb-2 text-3xl font-bold ">
+                <h2>Total:</h2>
+                <h2>$ {totalPrice}</h2>
+              </div>
+              <button className="flex justify-center items-center rounded-full w-full py-2 font-bold uppercase text-lg bg-primary-500  text-white hover:bg-primary-400/90 transition-colors duration-300 ease-in-out">
+                Iniciar Compra
               </button>
-            </div>
-          </div>
-        ))}
+              <button
+                onClick={onClose}
+                className="flex justify-center items-center py-2 w-full hover:underline"
+              >
+                Ver más productos
+              </button>
+            </section>
+          )}
+        </div>
       </aside>
     </div>
   );
