@@ -1,24 +1,28 @@
-export default function FormProduct() {
+export default function CartForm() {
   return (
-    <form className="flex flex-col gap-5">
-      <label htmlFor="nombre" className="text-sm">
-        Nombre de la chapita:
-      </label>
-      <input
-        type="text"
-        id="nombre"
-        placeholder="Nombre de la chapita"
-        className="border border-gray-300 p-2 rounded-md"
-      />
-      <label htmlFor="telefono" className="text-sm">
-        Teléfono:
-      </label>
-      <input
-        type="tel"
-        id="telefono"
-        placeholder="Teléfono"
-        className="border border-gray-300 p-2 rounded-md"
-      />
+    <form className="flex flex-col gap-5 p-5">
+      <div className="flex flex-col gap-2">
+        <label htmlFor="nombre" className="text-lg">
+          Nombre de la chapita:
+        </label>
+        <input
+          type="text"
+          id="nombre"
+          placeholder="Nombre de la chapita"
+          className="border border-gray-300 p-2 rounded-md"
+        />
+      </div>
+      <div className="flex flex-col gap-2">
+        <label htmlFor="telefono" className="text-lg">
+          Teléfono:
+        </label>
+        <input
+          type="tel"
+          id="telefono"
+          placeholder="Teléfono"
+          className="border border-gray-300 p-2 rounded-md"
+        />
+      </div>
       <div className="flex flex-col gap-2">
         <label htmlFor="backgroundColor" className="text-sm">
           Color fondo:
@@ -69,6 +73,12 @@ export default function FormProduct() {
           />
         </div>
       </div>
+      <button
+        type="submit"
+        className="bg-primary-500 text-white p-3 rounded-full hover:bg-primary-400 transition-all duration-300 ease-in-out font-bold text-xl"
+      >
+        Enviar
+      </button>
     </form>
   );
 }
