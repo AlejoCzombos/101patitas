@@ -112,9 +112,13 @@ export default function CartSlideMenu({
                 <h2>Total:</h2>
                 <h2>$ {totalPrice}</h2>
               </div>
-              <button className="flex justify-center items-center rounded-full w-full py-2 font-bold uppercase text-lg bg-primary-500  text-white hover:bg-primary-400/90 transition-colors duration-300 ease-in-out">
+              <Link
+                href={"/cart"}
+                onClick={onClose}
+                className="flex justify-center items-center rounded-full w-full py-2 font-bold uppercase text-lg bg-primary-500  text-white hover:bg-primary-400/90 transition-colors duration-300 ease-in-out"
+              >
                 Iniciar Compra
-              </button>
+              </Link>
               <button
                 onClick={onClose}
                 className="flex justify-center items-center py-2 w-full hover:underline"
