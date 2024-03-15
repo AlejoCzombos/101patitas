@@ -31,12 +31,11 @@ export default function CartSlideMenu({
       total += (product?.price ?? 0) * cartProduct.quantity;
     });
     return total;
-    setTotalPrice(total);
   };
 
   useEffect(() => {
-    CalculateTotalPrice();
-  }, [totalPrice]);
+    setTotalPrice(CalculateTotalPrice());
+  }, [totalPrice, cartProducts]);
 
   return (
     <div
