@@ -1,77 +1,109 @@
+"use client";
+
+import { FormEvent } from "react";
+import ColorInput from "./ColorInput";
+import Input from "./Input";
+
 export default function CartForm() {
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const data = Object.fromEntries(formData.entries());
+    console.log(formData);
+    console.log(data);
+  }
+
   return (
-    <form className="flex flex-col gap-5 p-5">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-2 p-5">
+      <Input
+        label="Nombre de la chapita"
+        id="name"
+        placeholder="Manchi"
+        type="text"
+      />
+      <Input label="Teléfono" id="phone" placeholder="3624 123456" type="tel" />
       <div className="flex flex-col gap-2">
-        <label htmlFor="nombre" className="text-lg">
-          Nombre de la chapita:
-        </label>
-        <input
-          type="text"
-          id="nombre"
-          placeholder="Nombre de la chapita"
-          className="border border-gray-300 p-2 rounded-md"
-        />
-      </div>
-      <div className="flex flex-col gap-2">
-        <label htmlFor="telefono" className="text-lg">
-          Teléfono:
-        </label>
-        <input
-          type="tel"
-          id="telefono"
-          placeholder="Teléfono"
-          className="border border-gray-300 p-2 rounded-md"
-        />
-      </div>
-      <div className="flex flex-col gap-2">
-        <label htmlFor="backgroundColor" className="text-sm">
-          Color fondo:
-        </label>
+        <label htmlFor="backgroundColor">Color fondo:</label>
         <div className="flex items-center gap-3">
-          <input
-            type="radio"
-            className="size-10 border-none checked:bg-green-500 bg-green-500 text-green-500"
-            name="backgroundColor"
+          <ColorInput
             value="verde"
-          />
-          <input
-            type="radio"
-            className="size-10 border-none checked:bg-blue-500 bg-blue-500 text-blue-500"
+            color="bg-green-500 checked:bg-green-500 text-green-500"
             name="backgroundColor"
+          />
+          <ColorInput
             value="azul"
-          />
-          <input
-            type="radio"
-            className="size-10 border-none checked:bg-red-500 bg-red-500 text-red-500"
+            color="bg-blue-500 checked:bg-blue-500 text-blue-500"
             name="backgroundColor"
+          />
+          <ColorInput
             value="rojo"
+            color="bg-red-500 checked:bg-red-500 text-red-500"
+            name="backgroundColor"
+          />
+          <ColorInput
+            value="amarillo"
+            color="bg-yellow-500 checked:bg-yellow-500 text-yellow-500"
+            name="backgroundColor"
+          />
+          <ColorInput
+            value="rosa"
+            color="bg-pink-500 checked:bg-pink-500 text-pink-500"
+            name="backgroundColor"
+          />
+          <ColorInput
+            value="naranja"
+            color="bg-orange-500 checked:bg-orange-500 text-orange-500"
+            name="backgroundColor"
           />
         </div>
       </div>
       <div className="flex flex-col gap-2">
-        <label htmlFor="frontColor" className="text-sm">
-          Color letras:
-        </label>
+        <label htmlFor="frontColor">Color letras:</label>
         <div className="flex items-center gap-3">
-          <input
-            type="radio"
-            className="size-10 border-none checked:bg-green-500 bg-green-500 text-green-500"
-            name="frontColor"
+          <ColorInput
             value="verde"
-          />
-          <input
-            type="radio"
-            className="size-10 border-none checked:bg-blue-500 bg-blue-500 text-blue-500"
+            color="bg-green-500 checked:bg-green-500 text-green-500"
             name="frontColor"
+          />
+          <ColorInput
             value="azul"
-          />
-          <input
-            type="radio"
-            className="size-10 border-none checked:bg-red-500 bg-red-500 text-red-500"
+            color="bg-blue-500 checked:bg-blue-500 text-blue-500"
             name="frontColor"
+          />
+          <ColorInput
             value="rojo"
+            color="bg-red-500 checked:bg-red-500 text-red-500"
+            name="frontColor"
+          />
+          <ColorInput
+            value="amarillo"
+            color="bg-yellow-500 checked:bg-yellow-500 text-yellow-500"
+            name="frontColor"
+          />
+          <ColorInput
+            value="rosa"
+            color="bg-pink-500 checked:bg-pink-500 text-pink-500"
+            name="frontColor"
+          />
+          <ColorInput
+            value="naranja"
+            color="bg-orange-500 checked:bg-orange-500 text-orange-500"
+            name="frontColor"
           />
         </div>
+      </div>
+      <div className="flex flex-col gap-2">
+        <label htmlFor="waist">Talle:</label>
+        <select
+          className="w-40 rounded-xl text-center cursor-pointer"
+          name="waist"
+          id="waist"
+        >
+          <option>S</option>
+          <option>M</option>
+          <option>L</option>
+          <option>XL</option>
+        </select>
       </div>
       <button
         type="submit"
