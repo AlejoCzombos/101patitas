@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Product } from "@/types";
 import { useCart } from "@/store/Cart";
 import type { CartState } from "@/store/Cart";
+import Link from "next/link";
 
 export default function CartForm({ productList }: { productList: Product[] }) {
   const { cartProducts } = useCart() as CartState;
@@ -45,9 +46,12 @@ export default function CartForm({ productList }: { productList: Product[] }) {
         <h2>$ {totalPrice}</h2>
       </div>
 
-      <button className="flex justify-center items-center rounded-full w-full py-2 font-bold text-lg bg-secondary-300  text-white hover:bg-secondary-400 transition-colors duration-300 ease-in-out">
+      <Link
+        href={"/cart/product-data"}
+        className="flex justify-center items-center rounded-full w-full py-2 font-bold text-lg bg-secondary-300  text-white hover:bg-secondary-400 transition-colors duration-300 ease-in-out"
+      >
         Siguiente paso
-      </button>
+      </Link>
     </section>
   );
 }
