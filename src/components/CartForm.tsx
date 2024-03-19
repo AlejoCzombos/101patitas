@@ -25,71 +25,23 @@ export default function CartForm() {
       <div className="flex flex-col gap-2">
         <label htmlFor="backgroundColor">Color fondo:</label>
         <div className="flex items-center gap-3">
-          <ColorInput
-            value="verde"
-            color="bg-green-500 checked:bg-green-500 text-green-500"
-            name="backgroundColor"
-          />
-          <ColorInput
-            value="azul"
-            color="bg-blue-500 checked:bg-blue-500 text-blue-500"
-            name="backgroundColor"
-          />
-          <ColorInput
-            value="rojo"
-            color="bg-red-500 checked:bg-red-500 text-red-500"
-            name="backgroundColor"
-          />
-          <ColorInput
-            value="amarillo"
-            color="bg-yellow-500 checked:bg-yellow-500 text-yellow-500"
-            name="backgroundColor"
-          />
-          <ColorInput
-            value="rosa"
-            color="bg-pink-500 checked:bg-pink-500 text-pink-500"
-            name="backgroundColor"
-          />
-          <ColorInput
-            value="naranja"
-            color="bg-orange-500 checked:bg-orange-500 text-orange-500"
-            name="backgroundColor"
-          />
+          <ColorInput value="verde" color="green" name="backgroundColor" />
+          <ColorInput value="azul" color="blue" name="backgroundColor" />
+          <ColorInput value="rojo" color="red" name="backgroundColor" />
+          <ColorInput value="amarillo" color="yellow" name="backgroundColor" />
+          <ColorInput value="rosa" color="pink" name="backgroundColor" />
+          <ColorInput value="naranja" color="orange" name="backgroundColor" />
         </div>
       </div>
       <div className="flex flex-col gap-2">
         <label htmlFor="frontColor">Color letras:</label>
         <div className="flex items-center gap-3">
-          <ColorInput
-            value="verde"
-            color="bg-green-500 checked:bg-green-500 text-green-500"
-            name="frontColor"
-          />
-          <ColorInput
-            value="azul"
-            color="bg-blue-500 checked:bg-blue-500 text-blue-500"
-            name="frontColor"
-          />
-          <ColorInput
-            value="rojo"
-            color="bg-red-500 checked:bg-red-500 text-red-500"
-            name="frontColor"
-          />
-          <ColorInput
-            value="amarillo"
-            color="bg-yellow-500 checked:bg-yellow-500 text-yellow-500"
-            name="frontColor"
-          />
-          <ColorInput
-            value="rosa"
-            color="bg-pink-500 checked:bg-pink-500 text-pink-500"
-            name="frontColor"
-          />
-          <ColorInput
-            value="naranja"
-            color="bg-orange-500 checked:bg-orange-500 text-orange-500"
-            name="frontColor"
-          />
+          <ColorInput value="verde" color="green" name="frontColor" />
+          <ColorInput value="azul" color="blue" name="frontColor" />
+          <ColorInput value="rojo" color="red" name="frontColor" />
+          <ColorInput value="amarillo" color="yellow" name="frontColor" />
+          <ColorInput value="rosa" color="pink" name="frontColor" />
+          <ColorInput value="naranja" color="orange" name="frontColor" />
         </div>
       </div>
       <div className="flex flex-col gap-2">
