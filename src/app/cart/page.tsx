@@ -1,6 +1,5 @@
 import { api } from "@/api";
 import CartProducts from "@/components/CartProducts";
-import CartForm from "@components/CartForm";
 import CartSummary from "@components/CartSummary";
 
 export default async function Home() {
