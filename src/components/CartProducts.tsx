@@ -67,7 +67,7 @@ export default function CartProducts({
                 alt="Chapa"
               />
               <div>
-                <Link href={`/products/${cartProduct.name}`}>
+                <Link href={`/product/${cartProduct.name}`}>
                   <h3 className="text-lg font-semibold hover:underline">
                     {cartProduct.name}
                   </h3>
