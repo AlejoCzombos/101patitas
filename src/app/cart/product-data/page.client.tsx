@@ -5,6 +5,7 @@ import { FormEvent } from "react";
 import { Order, Product } from "@/types";
 import { CartState, useCart } from "@/store/Cart";
 import ProductForm from "@/components/ProductForm";
+import AccordeonIcon from "@/components/Icons/AccordeonIcon";
 
 export default function ClientPage({
   createOrder,
@@ -37,29 +38,48 @@ export default function ClientPage({
 
   return (
     <main className="p-5 bg-gray-100">
-      <section className="grid grid-cols-1 lg:grid-cols-2 bg-white rounded-xl p-5 space-y-4 lg:space-x-5 max-w-5xl mx-auto">
-        <header className="space-y-5">
-          <Link className="hover:underline" href={"/cart"}>
-            {"<"} Volver atrás
-          </Link>
-          <div className="border-b"></div>
-          <div>
-            <h2 className="text-2xl font-bold">Información productos</h2>
-            <p>Complete los datos para cada producto</p>
+      <form
+        onSubmit={handleSubmit}
+        className="grid grid-cols-1 lg:grid-cols-2 bg-white rounded-xl p-5 space-y-4 lg:space-x-5 max-w-5xl mx-auto"
+      >
+        <div className=" space-y-5">
+          <header className="space-y-5">
+            <Link className="hover:underline" href={"/cart"}>
+              {"<"} Volver atrás
+            </Link>
+            <div className="border-b"></div>
+            <div>
+              <h2 className="text-2xl font-bold">Información productos</h2>
+              <p>Complete los datos para cada producto</p>
+            </div>
+          </header>
+          <div className="flex flex-col gap-2">
+            {cartProducts.map((product, index) =>
+              Array.from({ length: product.quantity }).map((_, i) => (
+                <ProductForm
+                  key={`${product.name}-${i}`}
+                  product={product}
+                  index={index}
+                />
+              ))
+            )}
           </div>
-        </header>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-          {cartProducts.map((product, index) => (
-            <ProductForm key={product.name} product={product} index={index} />
-          ))}
+        </div>
+        <div className="bg-primary-500 rounded-xl p-5 space-y-2 max-h-64">
+          <header>
+            <h2 className="text-2xl font-bold text-white">
+              Resumen del pedido
+            </h2>
+          </header>
+          <div className=" border-b border-white"></div>
           <button
             type="submit"
-            className="bg-primary-500 text-white p-3 rounded-full hover:bg-primary-400 transition-all duration-300 ease-in-out font-bold text-xl"
+            className="flex justify-center items-center rounded-full w-full py-2 font-bold text-lg bg-secondary-300  text-white hover:bg-secondary-400 transition-colors duration-300 ease-in-out"
           >
             Enviar
           </button>
-        </form>
-      </section>
+        </div>
+      </form>
     </main>
   );
 }
