@@ -4,7 +4,7 @@ export interface Product {
     category: string;
     shape: string;
     price: number;
-    image?: string[];
+    images?: string[];
 }
 
 export interface Order {

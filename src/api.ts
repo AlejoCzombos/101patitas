@@ -9,8 +9,9 @@ export const api = {
             .then(text => {
                 const rows = text.split('\n').slice(1)
                 return rows.map(row => {
-                    const [name, description, category, shape, price] = row.split('\t')
-                    return { name, description, category, shape, price: Number(price) }
+                    const [name, description, category, shape, price, images] = row.split('\t')
+                    const imagesArray = images?.replace("\r", "").split(',')
+                    return { name, description, category, shape, price: Number(price), images: imagesArray}
                 })
             })
         }
