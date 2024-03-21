@@ -1,47 +1,61 @@
-"use client";
+import Input from "./Input";
+import ColorInput from "./ColorInput";
+import { colorList } from "@/data/colors";
+import WaistSelect from "./WaistSelect";
+import { CartProduct } from "@/store/Cart";
 
-import { CartState, useCart } from "@/store/Cart";
-import { useState } from "react";
-
-export default function FormProduct({ productName }: { productName: string }) {
-  const [quantity, setQuantity] = useState<number>(1);
-  const { addProduct } = useCart() as CartState;
-
-  const addToCart = () => {
-    addProduct({ name: productName, quantity: quantity });
-  };
-
-  const changeQuantity = (newQuantity: number) => {
-    if (newQuantity < 1 || newQuantity > 99) return;
-    setQuantity(newQuantity);
-  };
-
+export default function ProductForm({
+  product,
+  index,
+}: {
+  product: CartProduct;
+  index: number;
+}) {
   return (
-    <section className="flex flex-col gap-3">
-      <div>
-        <label htmlFor="quantity" className="text-xl">
-          Cantidad:
-        </label>
-        <select
-          className="border-2 border-primary-500  w-full rounded-full text-center text-xl cursor-pointer"
-          value={quantity}
-          onChange={(e) => changeQuantity(parseInt(e.target.value))}
-          name="quantity"
-          id="quantity"
-        >
-          {[...Array(10).keys()].map((i) => (
-            <option key={i} value={i + 1}>
-              {i + 1}
-            </option>
+    <div
+      key={product.name}
+      className="flex flex-col gap-2 border-2 p-5 rounded-xl border-gray-300 bg-white"
+    >
+      <h3 className="text-3xl font-bold text-primary-500">{product.name}</h3>
+      <Input
+        label="Nombre de la chapita"
+        id={`name-${index}`}
+        placeholder="Manchi"
+        type="text"
+      />
+      <Input
+        label="Teléfono"
+        id={`phone-${index}`}
+        placeholder="3624 123456"
+        type="tel"
+      />
+      <div className="flex flex-col gap-2">
+        <label htmlFor={`backgroundColor-${index}`}>Color fondo:</label>
+        <div className="flex items-center gap-3">
+          {colorList.map((color) => (
+            <ColorInput
+              key={color.name}
+              value={color.name}
+              color={color.color}
+              name={`backgroundColor-${index}`}
+            />
           ))}
-        </select>
+        </div>
       </div>
-      <button
-        onClick={addToCart}
-        className="flex justify-center items-center rounded-full w-full  py-2 font-bold text-xl bg-primary-500  text-white hover:bg-primary-400/90 transition-colors duration-300 ease-in-out"
-      >
-        Agregar al carrito
-      </button>
-    </section>
+      <div className="flex flex-col gap-2">
+        <label htmlFor={`frontColor-${index}`}>Color letras:</label>
+        <div className="flex items-center gap-3">
+          {colorList.map((color) => (
+            <ColorInput
+              key={color.name}
+              value={color.name}
+              color={color.color}
+              name={`frontColor-${index}`}
+            />
+          ))}
+        </div>
+      </div>
+      <WaistSelect index={index} />
+    </div>
   );
 }
