@@ -1,5 +1,5 @@
 import { api } from "@/api";
-import FormProduct from "@/components/ProductForm";
+import QuantitySelector from "@/components/QuantitySelector";
 import { Carousel } from "@components/Carousel";
 
 export default async function ProductPage({
@@ -39,7 +39,7 @@ export default async function ProductPage({
             <h2 className="text-2xl font-bold">{product?.name}</h2>
             <p className="text-4xl font-bold">$ {product?.price}</p>
           </div>
-          <FormProduct productName={product.name} />
+          <QuantitySelector productName={product.name} />
           <p>{product?.description}</p>
         </div>
       </section>
