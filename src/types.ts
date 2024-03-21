@@ -6,3 +6,12 @@ export interface Product {
     price: number;
     image?: string[];
 }
+
+export interface Order {
+    model: string;
+    name: string | null;
+    phone: string | null;
+    backgroundColor: string | null;
+    frontColor: string | null;
+    waist: string | null;
+}
