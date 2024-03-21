@@ -3,7 +3,7 @@ import CartButton from "./CartButton";
 import Image from "next/image";
 import CartSlideMenu from "./CartSlideMenu";
 import { api } from "@/api";
-import logo from "@public/logo.png";
+import logo from "@public/Logo.png";
 
 async function getData() {
   const products = await api.products.list();
