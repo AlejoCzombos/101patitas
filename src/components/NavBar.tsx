@@ -3,6 +3,7 @@ import CartButton from "./CartButton";
 import Image from "next/image";
 import CartSlideMenu from "./CartSlideMenu";
 import { api } from "@/api";
+import logo from "@/public/logo.png";
 
 async function getData() {
   const products = await api.products.list();
@@ -21,7 +22,7 @@ export default async function NavBar() {
             width={750}
             height={300}
             className="size-24 object-contain h-10 w-auto sm:h-12 sm:w-auto"
-            src="/logo.png"
+            src={logo}
             alt="Logo de 101Patitas"
           />
         </Link>
