@@ -17,6 +17,7 @@ export default async function NavBar() {
         <div className="px-6"></div>
         <Link href="/" className="flex items-center">
           <Image
+            priority={true}
             width={750}
             height={300}
             className="size-24 object-contain h-10 w-auto sm:h-12 sm:w-auto"
