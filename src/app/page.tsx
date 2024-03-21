@@ -13,6 +13,7 @@ export default async function Home() {
             name={product.name}
             description={product.description}
             price={product.price}
+            images={product.images || []}
           />
         ))}
       </section>

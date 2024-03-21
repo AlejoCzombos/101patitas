@@ -27,6 +27,11 @@ export default function CartProducts({
     return products.find((product) => product.name === name)?.price || 0;
   };
 
+  const getImage = (name: string) => {
+    const product = products.find((product) => product.name === name);
+    return product?.images?.[0];
+  };
+
   const CalculateTotalPrice = () => {
     let total = 0;
     cartProducts.forEach((cartProduct) => {
@@ -58,13 +63,17 @@ export default function CartProducts({
         {cartProducts.map((cartProduct) => (
           <div
             key={cartProduct.name}
-            className="grid grid-cols-4 lg:grid-cols-3 border p-2 rounded-xl shadow-sm relative gap-4 bg-white hover:shadow-md transition duration-300 ease-in-out"
+            className="grid grid-cols-4 border p-2 rounded-xl shadow-sm relative gap-4 bg-white hover:shadow-md transition duration-300 ease-in-out"
           >
-            <div className="flex items-center gap-4 col-span-2 lg:col-span-1">
+            <div className="flex items-center gap-4 col-span-2">
               <img
-                className="size-16 object-contain rounded-lg"
-                src="https://placehold.it/64x64"
-                alt="Chapa"
+                loading="lazy"
+                className="size-16 object-cover rounded-lg"
+                src={
+                  `${cartProduct.name}/${getImage(cartProduct.name)}` ||
+                  "https://placehold.it/64x64"
+                }
+                alt={cartProduct.name}
               />
               <div>
                 <Link href={`/product/${cartProduct.name}`}>

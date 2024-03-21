@@ -22,6 +22,11 @@ export default function CartSlideMenu({
     setIsOpen(false);
   };
 
+  const getImage = (name: string) => {
+    const product = products.find((product) => product.name === name);
+    return product?.images?.[0] ?? "https://placehold.it/64x64";
+  };
+
   const CalculateTotalPrice = () => {
     let total = 0;
     cartProducts.forEach((cartProduct) => {
@@ -50,7 +55,7 @@ export default function CartSlideMenu({
         className={`
       ${
         isOpen ? "translate-x-0" : "translate-x-full"
-      } h-screen w-full sm:max-w-xl absolute top-0 right-0 z-50 bg-white transition-transform duration-300 ease-in-out overflow-y-auto`}
+      } h-screen w-screen sm:max-w-xl absolute top-0 right-0 z-50 bg-white transition-transform duration-300 ease-in-out overflow-y-auto`}
       >
         <button
           className="flex justify-start items-center p-4 bg-primary-500 group border-b border-primary-500 w-full gap-3 transition-colors hover:bg-white duration-300 ease-in"
@@ -65,44 +70,49 @@ export default function CartSlideMenu({
         <div className="flex flex-col justify-between p-5 space-y-8">
           <section className="space-y-4">
             {cartProducts.map((cartProduct) => (
-              <div key={cartProduct.name}>
-                <div className="flex justify-between relative">
-                  <div className="flex items-center gap-4">
-                    <img
-                      className="size-16 object-contain rounded-lg"
-                      src="https://placehold.it/64x64"
-                      alt="Chapa"
-                    />
-                    <div>
-                      <Link href={`/products/${cartProduct.name}`}>
-                        <h3 className="text-lg font-semibold hover:underline">
-                          {cartProduct.name}
-                        </h3>
-                      </Link>
-                      <p className="text-gray-500">
-                        Cantidad: {cartProduct.quantity}
-                      </p>
-                    </div>
-                  </div>
-                  {products && (
-                    <p className="flex items-end pb-1 text-lg font-bold">
-                      ${" "}
-                      {(products.find(
-                        (product) => product.name === cartProduct.name
-                      )?.price ?? 0) * cartProduct.quantity}
+              <div
+                key={cartProduct.name}
+                className="flex justify-between relative"
+              >
+                <div className="flex items-center gap-4">
+                  <img
+                    loading="lazy"
+                    className="size-16 object-cover rounded-lg"
+                    src={
+                      `${cartProduct.name}/${getImage(cartProduct.name)}` ||
+                      "https://placehold.it/64x64"
+                    }
+                    alt={cartProduct.name}
+                  />
+                  <div>
+                    <Link href={`/products/${cartProduct.name}`}>
+                      <h3 className="text-lg font-semibold hover:underline">
+                        {cartProduct.name}
+                      </h3>
+                    </Link>
+                    <p className="text-gray-500">
+                      Cantidad: {cartProduct.quantity}
                     </p>
-                  )}
-                  <button
-                    className="absolute top-1 right-1"
-                    aria-label="Remove from Cart"
-                    onClick={() => {
-                      removeProduct(cartProduct);
-                      setTotalPrice(CalculateTotalPrice());
-                    }}
-                  >
-                    <CloseIcon className="size-6 hover:transform hover:scale-125 duration-300" />
-                  </button>
+                  </div>
                 </div>
+                {products && (
+                  <p className="flex items-end pb-1 text-lg font-bold">
+                    ${" "}
+                    {(products.find(
+                      (product) => product.name === cartProduct.name
+                    )?.price ?? 0) * cartProduct.quantity}
+                  </p>
+                )}
+                <button
+                  className="absolute top-1 right-1"
+                  aria-label="Remove from Cart"
+                  onClick={() => {
+                    removeProduct(cartProduct);
+                    setTotalPrice(CalculateTotalPrice());
+                  }}
+                >
+                  <CloseIcon className="size-6 hover:transform hover:scale-125 duration-300" />
+                </button>
               </div>
             ))}
           </section>

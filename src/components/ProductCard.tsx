@@ -1,13 +1,17 @@
+"use client";
+
 import Link from "next/link";
 
 export function ProductCard({
   name,
   description,
   price,
+  images,
 }: {
   name: string;
   description: string;
   price: number;
+  images: string[];
 }) {
   return (
     <article
@@ -16,7 +20,8 @@ export function ProductCard({
     >
       <img
         className="object-cover w-full aspect-square rounded-xl"
-        src="https://placehold.it/300x300"
+        src={`${name}/${images[0]}` || "https://placehold.it/300x300"}
+        loading="lazy"
         alt={name}
       />
       <div className="p-4 flex flex-col gap-1">
