@@ -4,7 +4,7 @@ import { colorList } from "@/data/colors";
 import WaistSelect from "./WaistSelect";
 import { CartProduct } from "@/store/Cart";
 
-export default function ProductForm({
+function ProductForm({
   product,
   index,
 }: {
@@ -14,7 +14,7 @@ export default function ProductForm({
   return (
     <div
       key={product.name}
-      className="flex flex-col gap-2 border-2 p-5 rounded-xl border-gray-300 bg-white"
+      className="flex flex-col gap-2 border p-5 rounded-xl border-gray-300 bg-white"
     >
       <h3 className="text-3xl font-bold text-primary-500">{product.name}</h3>
       <Input
@@ -31,7 +31,7 @@ export default function ProductForm({
       />
       <div className="flex flex-col gap-2">
         <label htmlFor={`backgroundColor-${index}`}>Color fondo:</label>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap gap-3">
           {colorList.map((color) => (
             <ColorInput
               key={color.name}
@@ -44,7 +44,7 @@ export default function ProductForm({
       </div>
       <div className="flex flex-col gap-2">
         <label htmlFor={`frontColor-${index}`}>Color letras:</label>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap gap-3">
           {colorList.map((color) => (
             <ColorInput
               key={color.name}
@@ -59,3 +59,5 @@ export default function ProductForm({
     </div>
   );
 }
+
+export default ProductForm;
