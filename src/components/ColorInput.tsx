@@ -1,5 +1,3 @@
-import classNames from "classnames";
-
 interface ColorInputProps {
   value: string;
   color: string;
