@@ -1,11 +1,15 @@
 "use client";
 import Link from "next/link";
 
-import { FormEvent } from "react";
-import { Order, Product } from "@/types";
+import { FormEvent, useEffect, useState } from "react";
+import { FormValuesCartProduct, Order, Product } from "@/types";
 import { CartState, useCart } from "@/store/Cart";
 import ProductForm from "@/components/ProductForm";
-import AccordeonIcon from "@/components/Icons/AccordeonIcon";
+import { useForm, useFieldArray } from "react-hook-form";
+
+type CartFormValues = {
+  products: FormValuesCartProduct[];
+};
 
 export default function ClientPage({
   createOrder,
@@ -14,32 +18,62 @@ export default function ClientPage({
   createOrder: (order: Order[]) => void;
   products: Product[];
 }) {
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  const [cartProducts, setCartProducts] = useState<CartState["cartProducts"]>([]);
+  const { cartProducts: initialCartProducts } = useCart() as CartState;
 
-    const formData = new FormData(event.currentTarget);
+  useEffect(() => {
+    setCartProducts(initialCartProducts);
+  }, [initialCartProducts]);
 
-    const order: Order[] = cartProducts.map((product, index) => ({
-      model: product.name,
-      name: formData.get(`name-${index}`)?.toString() || "",
-      phone: formData.get(`phone-${index}`)?.toString() || "",
-      backgroundColor:
-        formData.get(`backgroundColor-${index}`)?.toString() || "",
-      frontColor: formData.get(`frontColor-${index}`)?.toString() || "",
-      waist: formData.get(`waist-${index}`)?.toString() || "",
-    }));
+  const {
+    handleSubmit,
+    formState: { errors },
+    control,
+    register,
+    reset,
+  } = useForm<CartFormValues>({
+    defaultValues: {
+      products: cartProducts.flatMap((product) =>
+        Array.from({ length: product.quantity }, () => ({
+          name: "",
+          phone: "",
+          backgroundColor: "",
+          frontColor: "",
+          waist: "",
+        }))
+      ),
+    },
+  });
 
-    createOrder(order);
+  useEffect(() => {
+    if (cartProducts.length > 0) {
+      reset({
+        products: cartProducts.flatMap((product) =>
+          Array.from({ length: product.quantity }, () => ({
+            name: "",
+            phone: "",
+            backgroundColor: "",
+            frontColor: "",
+            waist: "",
+          }))
+        ),
+      });
+    }
+  }, [cartProducts, reset]);
 
-    //event.currentTarget.reset();
-  }
+  const { fields } = useFieldArray({
+    control,
+    name: "products",
+  });
 
-  const { cartProducts } = useCart() as CartState;
+  const onSubmit = (data: CartFormValues) => {
+    console.log(data);
+  };
 
   return (
     <main className="p-5 bg-gray-100">
       <form
-        onSubmit={handleSubmit}
+        onSubmit={handleSubmit(onSubmit)}
         className="grid grid-cols-1 lg:grid-cols-2 bg-white rounded-xl p-5 space-y-4 lg:space-x-5 max-w-5xl mx-auto"
       >
         <div className=" space-y-5">
@@ -54,22 +88,22 @@ export default function ClientPage({
             </div>
           </header>
           <div className="flex flex-col gap-2">
-            {cartProducts.map((product, index) =>
-              Array.from({ length: product.quantity }).map((_, i) => (
+            {fields.length > 0 &&
+              cartProducts.length > 0 &&
+              fields.map((field, index) => (
                 <ProductForm
-                  key={`${product.name}-${i}`}
-                  product={product}
+                  key={field.id}
+                  product={cartProducts[index] ? cartProducts[index] : { name: "", quantity: 0 }}
                   index={index}
+                  register={register}
+                  errors={errors}
                 />
-              ))
-            )}
+              ))}
           </div>
         </div>
         <div className="bg-primary-500 rounded-xl p-5 space-y-2 max-h-64">
           <header>
-            <h2 className="text-2xl font-bold text-white">
-              Resumen del pedido
-            </h2>
+            <h2 className="text-2xl font-bold text-white">Resumen del pedido</h2>
           </header>
           <div className=" border-b border-white"></div>
           <button
